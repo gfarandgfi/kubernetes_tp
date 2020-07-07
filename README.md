@@ -1,6 +1,6 @@
 # Travaux pratiques pour formation kubernetes
 
-## TP no 00
+## TP-00
 
 Accès à l'environnement du TP
 

@@ -1,6 +1,6 @@
-# Travaux pratiques pour formation docker
+# Travaux pratiques pour formation kubernetes
 
-## TP no 01
+## TP-01
 
 Premier contact avec kubernetes, faire sa place
 
@@ -42,20 +42,20 @@ Afin d'éviter d'éviter d'avoir un tas de ressources mélangées sous peine de 
 
 Voici donc le moment de créer notre première ressource !
 
-J'ai besoin d'un espace dans mon cluster pour y déployer mes pods. Je dois donc créer un namespace qui porte mon nom
+J'ai besoin d'un espace dans mon cluster pour y déployer mes pods. Je dois donc créer un namespace qui porte mon nom (ou en réalité celui que vous voulez)
 
 #### En ligne de commande
 
 Rien de plus simple !!
 
 ```bash
-kubectl create namespace <namespace>
+kubectl create namespace <mon_nom>
 ```
 
 Vérifions la bonne création par 2 commandes :
 
 ```bash
-kubectl describe namespace <namespace>
+kubectl describe namespace <mon_nom>
 kubectl get namespaces
 ```
 

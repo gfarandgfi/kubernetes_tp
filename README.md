@@ -1,4 +1,4 @@
-# Travaux pratiques pour formation docker
+# Travaux pratiques pour formation kubernetes
 
 ## TP no 00
 
@@ -44,10 +44,6 @@ kubectl cluster-info
 kubectl get nodes
 ```
 
-- [ ] obtenez des informations sur les composants du master (control plane)
-
-```bash
-kubectl get componentstatuses
 ```
 
 - [ ] observez tous les objets déjà créés (ou presque)
@@ -57,4 +53,3 @@ kubectl get all
 ```
 
 - [ ] faites part de vos questions et observations à votre formateur
-

@@ -44,8 +44,6 @@ kubectl cluster-info
 kubectl get nodes
 ```
 
-```
-
 - [ ] observez tous les objets déjà créés (ou presque)
 
 ```bash

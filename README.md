@@ -82,6 +82,35 @@ kubectl exec -it <pod> -n <namespace> -- bash
 ```
 Pour quitter le container, utilisez 'exit' ou 'Ctrl-D'
 
+### Test de résilience
+
+Faites le test suivant :
+* Executez un shell bash dans le container nginx du pod webserver
+* Tuez le process 1
+
+Sortez de votre pod et vérifiez l'état du pod :
+```bash
+kubectl get pod <pod>
+```
+
+Est-il toujours présent ?
+Qu'indique la colonne STATUS ?
+Qu'indique la colonne RESTART ?
+
+Cela peut prendre un peu de temps, mais on constate que le container est bien mort, mais qu'il est relancé.
+Ceci autant de fois qu'on le tue.
+
+La réponse est obtenue par l'analyse du pod :
+
+```bash
+kubectl get pod webserver -o yaml
+```
+
+En effet, il existe une stratégie de redémarrage, et sa valeur par défaut est Always.
+
+```bash
+ restartPolicy: Always
+```
 
 ### J'en ai marre de préciser le namespace à chaque commande !
 

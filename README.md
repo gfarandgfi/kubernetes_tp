@@ -36,7 +36,7 @@ kubectl run nginx --image=nginx:latest --namespace=<mon_nom>
 Avec cette commande j'aurai rapidement un serveur web qui tourne dans mon cluster. Il sera dans le bon namespace. 
 Tout ira bien, sauf... qu'il ne sera pas configuré. 
 
-Si je commence par écrire du code, je pourrai ensuite le modifier pour le configurer. Mais par où commencer ?
+Si je commence par écrire du code, je pourrai ensuite le modifier pour le configurer. Mais par où commencer ?  
 Pas de panique !
 ```
 kubectl run nginx --image=nginx:latest --dry-run -o yaml

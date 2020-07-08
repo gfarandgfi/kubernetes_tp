@@ -1,6 +1,32 @@
-# Travaux pratiques pour formation docker
+# Travaux pratiques pour formation kubernetes
 
-## TP no 02
+## TP-02
+
+On m'informe que ce que je déploie dans mon cluster doit être documenté. Je dois donc posséder un copie du code.
+Malheureusement, j'ai créé mon namespace avec la cli. Vais-je devoir coder du départ ce que j'ai déja fait ?
+
+
+Pas du tout !
+```
+kubectl get namespace <mon_nom> -o yaml
+```
+La sortie de cette commande est la représentation de mon namespace en format YAML. 
+J'aurais pu avoir une sortie dans d'autres formats. 
+```
+kubectl get namespace <mon_nom> -o json
+```
+```
+kubectl get namespace <mon_nom> -o wide
+```
+YAML et json sont disponibles, ainsi que 'wide' qui se veut quasi-exhaustif, 'name' qui se veut minimal, et un format custom permettant de choisir les colonnes à afficher.
+
+Je dispose maintenant d'une commande qui me permet de voir facilement les manifestes pour ensuite eventuellement les éditer.
+
+Essayons avec un ~~container~~ pod. Lançons un pod contenant un container busybox
+```
+kubectl run busybox --image=busybox
+```
+
 
 Premier container... Qui a dit pod ?
 

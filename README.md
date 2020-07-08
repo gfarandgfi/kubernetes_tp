@@ -1,41 +1,6 @@
-# Travaux pratiques pour formation docker
+# Travaux pratiques pour formation kubernetes
 
-## TP no 04
-
-Ajoutons de l'élasticité
-
-### Que se passe-t-il si mon pod meurt ?
-
-Tout d'abord, avec un pod simple tel que nous l'avons créé, il y a déjà un minimum de résilience.
-
-Faites le test suivant :
-* Executez un shell bash dans le container nginx du pod webserver
-* Tuez le process 1
-
-Vérifier l'état du pod webserver :
-```bash
-kubectl get pod webserver
-```
-
-Est-il toujours présent ?
-Qu'indique la colonne STATUS ?
-Qu'indique la colonne RESTART ?
-
-Cela peut prendre un peu de temps, mais on constate que le container est bien mort, mais qu'il est relancé.
-Ceci autant de fois qu'on le tue.
-
-La réponse est obtenue par l'analyse du pod :
-
-```bash
-kubectl get pod webserver -o yaml
-```
-
-En effet, il existe une stratégie de redémarrage, et sa valeur par défaut est Always.
-
-```bash
- restartPolicy: Always
-```
-
+## TP-04
 
 ### Mon site a du succès, je veux plusieurs pods
 

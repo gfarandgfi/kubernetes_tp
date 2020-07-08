@@ -10,36 +10,32 @@ Si vous avez bien compris comment fonctionne un replicaset, il ne suffit pas de 
 En effet, il ne s'agit que d'un template qui sert à créer les nouveaux pods en cas de bseoin.
 
 Faisons l'exercice.
-Dans le fichier web-replicaset.yaml de ce TP, vous constaterez que la version du container a été mise à jour à 1.19.
-
-Tentez d'appliquer le nouveau fichier :
-
+Changeons dans notre code la version de l'image nginx à 1.19, puis appliquons:
 ```bash
 kubectl apply -f web-replicaset.yaml
 ```
 
-La modification est prise en compte, mais rien ne se passe (excepté le nombre de pod si vous n'étiez pas revenu à 3)
-
+La modification est prise en compte, mais rien ne se passe 
 Observez les différents pod et cherchez la version de l'image, elle sera toujours à 1.18.
-
 ```bash
 kubectl describe pod/web-rs-xxxxx
 ```
 
 Pour forcer la prise en compte, il faut tuer ces "anciens" pods et le replicaset créera les nouveaux à partir du template, qui désormais prône la version 1.19.
-
 ```bash
 kubectl delete pod/web-rs-xxxxx
 ```
 
 Observez (avec describe), les nouveaux pods seront bien en version 1.19.
 
+On voit ici les limites du ReplicaSet: dans un environnement de production j'aurais dans ce cas eu une interruption de service.
+
+
 ### Utilisons les Deployments
 
 C'est donc pour gérer ces problématiques de montée de version qu'on été créé les Deployement.
 
 Détruisez le replicaset précédent pour repartir sur de bonnes bases.
-
 ```bash
 kubectl delete -f web-replicaset.yaml
 ```
@@ -50,22 +46,23 @@ Observons maintenant le fichier web-deployment.yaml. Excepté le "kind", nous so
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-deployment
+  name: 
   labels:
-    truc: label-deployment
+    truc: un_truc
+    label: des_champs
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: web
+      app: 
   template:
     metadata:
       labels:
-        app: web
+        app: 
     spec:
       containers:
       - name: nginx
-        image: nginx:1.17
+        image: nginx:1.19
 ```
 
 Créez ce Deployment :
@@ -94,7 +91,7 @@ La méthode la plus simple et classique consiste à modifier le fichier web-depl
 Mettez à jour l'image pour passer à la version 1.18 de nginx, et appliquez.
 
 ```bash
-kubectl apply -f web-deployment.yaml
+kubectl apply -f monfichier.yaml
 ```
 
 Observez les changements :

@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: web-rs
+  name: 
   labels:
-    truc: labeldureplicaset
+    truc: un_truc
+    label: de_mai
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: web
+      app: 
   template:
     metadata:
       labels:
-        app: web
+        app: 
     spec:
       containers:
-      - name: webserver
+      - name: 
         image: nginx:1.19
 

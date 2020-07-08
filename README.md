@@ -41,7 +41,6 @@ kubectl delete -f web-replicaset.yaml
 ```
 
 Observons maintenant le fichier web-deployment.yaml. Excepté le "kind", nous sommes sur la même définition que pour un ReplicaSet.
-
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -66,9 +65,8 @@ spec:
 ```
 
 Créez ce Deployment :
-
 ```bash
-kubectl create -f web-deployment.yaml
+kubectl apply -f web-deployment.yaml
 ```
 
 Observez le résultat :
@@ -76,11 +74,7 @@ Observez le résultat :
 * Un ReplicaSet est créé (avec pour nom replicaset.apps/<nom-deployment>-9999999999)
 * Des pods sont créés (avec pour nom pod/<nom-deployment>-9999999999-abcde)
 
-```bash
-kubectl get all
-```
-
-**Note** : vous pouvez toujours vérifier qu'ils font partie des Endpoints du service (à cause du label 'app: web') et qu'ils acceptent des requêtes HTTP sur le nom DNS du loadbalancer.
+**Note** : vous pouvez toujours vérifier qu'ils font partie des Endpoints du service (à cause du label 'app: <label>') et qu'ils acceptent des requêtes HTTP sur le nom DNS du loadbalancer.
 
 Tout est au beau fixe.
 Il est temps de changer de version
@@ -89,7 +83,6 @@ Il est temps de changer de version
 
 La méthode la plus simple et classique consiste à modifier le fichier web-deployment.yaml.
 Mettez à jour l'image pour passer à la version 1.18 de nginx, et appliquez.
-
 ```bash
 kubectl apply -f monfichier.yaml
 ```
@@ -98,19 +91,13 @@ Observez les changements :
 * Un second ReplicaSet a été créé
 * Si vous êtes attentifs et rapides, vous aurez peut-être le temps de voir migrer les pods
 
-```bash
-kubectl get all
-```
-
 Vous pouvez constater l'état en cours de migration (ici réussie) :
-
-```bash
+```
 kubectl rollout status deployment web-deployment
 ```
 
 Vous pouvez consulter l'historique des révisions :
-
-```bash
+<w```
 kubectl rollout history deployment web-deployment
 ```
 
@@ -119,27 +106,24 @@ Sachez que lors des changements (ici kubectl apply -f), il est possible d'enregi
 C'est déjà une bonne information (la ligne de commande saisie), mais ça ne nous donne pas le contenu du changement.
 
 Il est possible si vous le souhaitez de le préciser librement avec une annotation :
-
 ```bash
-kubectl annotate deployment/web-deployment kubernetes.io/change-cause="image mis à jour en 1.18" --record
+kubectl annotate deployment/web-deployment kubernetes.io/change-cause="image mise à jour en 1.18" --record
 ```
 
 Regardez, c'est quand même plus explicite !
-
 ```bash
 kubectl rollout history deployment web-deployment
 ```
 
+
 ### Montée de version en ligne de commande
 
 Pour les adeptes de la ligne de commande, tant que le changement est tracé, vous pouvez le faire de cette façon :
-
 ```bash
 kubectl set image deployment/web-deployment nginx=nginx:1.19 --record
 ```
 
 Observez les ressources :
-
 ```bash
 kubectl get all
 ```
@@ -147,7 +131,6 @@ kubectl get all
 **Note** : Vous pouvez vérifier avec describe que l'image des pods est bien en version 1.19
 
 Observez les révisions :
-
 ```bash
 kubectl rollout history deployment web-deployment
 ```
@@ -155,13 +138,11 @@ kubectl rollout history deployment web-deployment
 ### Je veux revenir en version 1.18 
 
 Rien de plus facile, il suffit d'utiliser undo :
-
 ```bash
 kubectl rollout undo deployment web-deployment
 ```
 
 Et si on veut revenir encore plus en arrière, on utilise --to-revision
-
 ```bash
 kubectl rollout undo deployment web-deployment --to-revision=1
 ```
@@ -170,33 +151,26 @@ kubectl rollout undo deployment web-deployment --to-revision=1
 
 Il y a des fois ou la modification n'aboutit pas.
 Pour simuler facilement le cas, prenez une version d'image inexistante : par exemple 1.99
-
 ```bash
 kubectl set image deployment/web-deployment nginx=nginx:1.99 --record
 ```
 
 Suivez l'avancement :
-
 ```bash
 kubectl rollout status deployment web-deployment
 ```
 
-On voit que ça n'avance pas. Vous pouvez sortir avec un Ctrl-C
-
-On constate aussi le problème avec un describe sur le deployment
-
+On voit que ça n'avance pas. On constate aussi le problème avec un describe sur le deployment
 ```bash
 kubectl describe deployment web-deployment
 ```
 
 Ou encore sur les ressources :
-
 ```bash
 kubectl get all
 ```
 
 La solution reste la même => la marche arrière avec un undo :
-
 ```bash
 kubectl rollout undo deployment web-deployment
 ```

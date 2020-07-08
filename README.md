@@ -6,42 +6,38 @@ Assurer le service !
 
 ### Nous voulons rendre notre serveur web accessible
 
-Pour l'instant, notre pod existe dans l'orchestrateur, mais n'est pas accessible.
+Pour l'instant, mon pod existe dans l'orchestrateur. Il fonctionne, mais n'est pas accessible.  
 Il dispose d'une adresse IP privée affectée de façon aléatoire et est démarré sur un noeud quelconque.
 
-Nous avons vu qu'il existe des ressource de type Service qui permettent d'exposer un ou plusieurs pod identifiés par un sélecteur.
+Pour le rendre accessible à l'éxterieur, je dois donc l'exposer avec un service.  
+
+Comme nous l'avons vu, un service se base sur un selector pour choisir ses pods. Oh wait...
+
 
 #### Ajout d'un label
 
-Problème : notre pod n'a pas de label !
+On commence à comprendre l'utilité de tout décrire avec du code :wink:
 
-Soit vous disposez du fichier yaml d'origine (c'est bien!)
-Soit vous le regénérez via la commande suivante :
-
-```bash
-kubectl get pods webserver -o yaml >webserver-pod.yaml
-```
-
-Ajoutez un (ou plusieurs) label(s) de votre choix dans les metadata de votre pod :
-
+Récuperez le code de votre pod si vous ne l'avez pas conservé, et ajoutez un (ou plusieurs) label(s) de votre choix dans les metadata de votre pod :
 ```yaml
 metadata:
   labels:
     app: web
+    label: bleue
 ```
-
-Et **appliquez** la modification directement sur votre pod (évite la destruction/recréation) :
-
+Et **appliquez** la modification directement sur votre pod:
 ```bash
 kubectl apply -f webserver-pod.yaml
 ```
+ Je modifie un pod dans lequel un container s'éxecute. La commande apply fait que mon pod ne sera pas détruit/recréé si cela est possible (un changement d'image, par exemple, forcerait une déstruction/recréation)
 
 Vous devriez obtenir le message "pod/webserver configured"
-Vous pouvez (devriez) vérifier via une commande "get" (j'arrête de vous donnez les commandes, je vous laisse commencer à prendre votre autonomie)
+Vérifions avec la bonne commande
+
 
 #### Création du service 
 
-Nous allons gagner du temps, voici la description du service que nous allons créer :
+Nous allons gagner du temps, voici le squelette du service que nous allons créer :
 * Service de type LoadBalancer (géré par le cloud, ici AWS)
 * Selectionne tous les pods ayant le label app: web
 * Ecoute sur le port 80, redirige sur le port 80 des containers ciblés (containerPort)
@@ -50,9 +46,10 @@ Nous allons gagner du temps, voici la description du service que nous allons cr�
 apiVersion: v1
 kind: Service
 metadata:
-  name: webserver-service
+  name: 
   labels:
-    info: un_label_pour_webserver-service
+    a_label:
+    another_label:
 spec:
   type: LoadBalancer
   ports:
@@ -65,13 +62,11 @@ spec:
 
 Le fichier existe dans le répertoire de ce TP (webserver-service.yaml)
 Vous pourriez ajouter "namespace: <namespace>" dans la partie metadata, mais l'apiserver le fera pour vous.
-
 ```bash
-kubectl create -f webserver-service.yaml
+kubectl apply -f webserver-service.yaml
 ```
 
 Le service est créé. Observons ses propriétés :
-
 ```bash
 kubectl describe service webserver-service
 ```
@@ -84,11 +79,7 @@ kubectl describe service webserver-service
 * On trouve une adresse IP privée de service, qui ne nous intéresse pas, mais attibuée sur le service_cidr
 * On trouve de façon plus intéressante l'adresse publique du loadbalancer avec **LoadBalancer Ingress**
 
-Tentez d'accéder à votre service (le provisionnement de l'ELB peut prendre un peu de temps) :
-
-```bash
-http://xxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxx.eu-west-3.elb.amazonaws.com
-```
+Tentez d'accéder à votre service (le provisionnement de l'ELB peut prendre un peu de temps)
 
 C'est tout pour ce TP !  :clap:
 

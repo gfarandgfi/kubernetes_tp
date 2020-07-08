@@ -39,148 +39,48 @@ Tout ira bien, sauf... qu'il ne sera pas configuré.
 Si je commence par écrire du code, je pourrai ensuite le modifier pour le configurer. Mais par où commencer ?  
 Pas de panique !
 ```
-kubectl run nginx --image=nginx:latest --dry-run -o yaml
+kubectl run nginx --image=nginx:latest --dry-run=client -o yaml
 ```
-J'ai maintenant un squelette de code, et je peux respecter les bonnes pratiques
+J'ai maintenant un squelette de code, et je peux respecter les bonnes pratiques.
+Comparons ce résultat à la version minimale fournie dans ce TP. Que remarque-t-on ?
 
-### Démarrons notre premier Pod
 
-La commande 'kubectl create' existe, mais pour un nombre limité de ressources (cf documentation).
+### Création et lancement d'un premier pod
 
-Pour exécuter un pod, il existe la commande 'kubectl run' avec laquelle on précise un nom de pod, un nom d'image,...
-
-Nous allons prendre tout de suite les bonnes habitudes :
-* utiliser un fichier yaml
-* mieux encore, générer le squelette du fichier yaml  :bowtie:
-
-Pour notre premier pod, faisons simple : un serveur web (au hasard, nginx)
-* nom du pod : webserver
-* nom de l'image docker : nginx:latest 
-* mode dry-run
-* format de sortie yaml
-
-```bash
-kubectl run webserver --image=nginx:latest --dry-run=client -o yaml
+Maintenant que j'ai le code pour mon serveur web, je suis prêt à le construire et le lancer.
+```
+kubectl apply -f monfichier.yml
 ```
 
-Vous retrouvez la formule AKMS.
-Vous pouvez partir de ce fichier, il est très bien.
-S'il est encore trop chargé, voici une version minimale
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: webserver
-spec:
-  containers:
-  - image: nginx:latest
-    name: webserver
+Je peux vérifier que mon pod se lance et tourne correctement. Est-il dans le bon namespace ?
+```
+kubectl get pods -a
 ```
 
-Redirigez/copiez le contenu dans un fichier (exemple pod-nginx.yaml) et créez enfin ce premier pod.
-
-```bash
-kubectl create -f pod-nginx.yaml
-```
-
-A ce stade, je dois avoir :
-* un élève heureux  :smile:
-* 3 élèves  :disappointed_relieved:  :angry:  :sob:
-
-En effet, nous travaillons sur un même cluster et nous avons oublié de spécifier la notion de namespace.
-Pour l'heureux élève qui aura réussi à créer son pod dans le namespace default, il faut le détruire.
-
-```bash
-kubectl delete -f pod-nginx.yaml
-```
+Je dois toujours créer ce serveur web dans ce namespace. N'y a-t-il pas une solution plus pratique ?
 
 
-### Utilisons un namespace
-
-Corrigeons notre erreur dans la partie metadata (remplacez jcanon par votre nom de namespace):
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: webserver
-  namespace : jcanon
-spec:
-  containers:
-  - image: nginx:latest
-    name: webserver
-```
-
-Créons le pod dans le bon namespace :
-
-```bash
-kubectl create -f pod-nginx.yaml
-```
-
-Vérifiez :
-
-```bash
-kubectl get pods -n <namespace>
-kubectl get pods --all-namespaces
-```
-
-Si tout s'est bien passé, on voit notre pod au status RUNNING.
-Si ce n'est pas le cas, prévenez-moi.
-
-Par ailleurs, dans la colonne ready, on peut lire "1/1".
-Cela correspond au nombre de container running sur le nombre de container total de notre pod.
-
-### Et maintenant ?
-
-C'est bien, nous avons enfin un pod. Et qu'est-ce qu'on en fait ?
+### Et si j'ai un problème ? Le debug.
 
 Notre pod tourne correctement dans kubernetes. C'est déjà un bel objectif atteint.
+Si ca vient à ne plus être le cas, kubernetes met à disposition certains outils pour en diagnostiquer la cause.
 
-A ce stade, il n'y a pas moyen de lui envoyer des requêtes depuis la VM.
-Nous en verrons plus plus tard.
-
-Nous pouvons obtenir des informations sur ce qu'il s'est passé dans le cluster via les évènements :
-
-```bash
+Analyser les évenements du cluster:
+```
 kubectl get events -n <namespace>
 ```
 
-Nous pouvons obtenir les logs du container :
-
-```bash
-kubectl logs webserver -n <namespace>
+Obtenir les logs du container:
+```
+kubectl logs <pod> -n <namespace>
 ```
 
-Mieux encore, pourquoi ne pas entrer dans le container, comme nous le faisions avec docker ?
-Voici la commande pour lancer un shell bash (Notez le -- pour séparer les options kubectl de la commande à exécuter)
-
-```bash
-kubectl exec -it webserver -n <namespace> -- bash
+Si cela ne suffit pas, on executer une commande maintenant familière pour entrer dans le container et appliquer des méthodes de diagnostic classiques:
 ```
-
-Une fois à l'intérieur, je vous propose :
-* de déduire quel est l'os de base
-* d'installer de quoi voir les processus internes au container (commande ps)
-* de visualiser effectivement les processus internes (quels sont-ils ?)
-* d'installer des outils réseau
-* d'observer sur quel port et quelle interface écoute le serveur web
-* d'envoyer des requêtes sur différentes urls
-
-```bash
-cat /etc/issue
-apt-get update && apt-get install -y procps
-ps -ef
-apt install -y net-tools
-netstat -plntu
-curl http://localhost/
-ifconfig -a
-curl http://<ip_eth0>/
+kubectl exec -it <pod> -n <namespace> -- bash
 ```
-
-Faites moi part de toutes vos remarques ou questions, n'hésitez pas.
-
 Pour quitter le container, utilisez 'exit' ou 'Ctrl-D'
+
 
 ### J'en ai marre de préciser le namespace à chaque commande !
 
@@ -246,6 +146,10 @@ kubectl config set-context aks-00 --namespace=<namespace>
 
 A partir de maintenant, le namespace par défaut sera le votre.
 Mais souvenez-vous que certaines ressources sont globales et non liées à un namespace !
+
+Il existe aussi des outils tiers pour faciliter la navigation entre les contextes
+kubectx pour naviguer entre les clusters (https://github.com/ahmetb/kubectx)
+kubens [https://github.com/ahmetb/kubectx/blob/master/kubens] pour naviguer entre les namespaces 
 
 C'est tout pour ce TP. Félicitations !  :ok_hand:
 

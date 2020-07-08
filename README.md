@@ -148,8 +148,8 @@ A partir de maintenant, le namespace par défaut sera le votre.
 Mais souvenez-vous que certaines ressources sont globales et non liées à un namespace !
 
 Il existe aussi des outils tiers pour faciliter la navigation entre les contextes  
-kubectx pour naviguer entre les clusters (https://github.com/ahmetb/kubectx)  
-kubens [https://github.com/ahmetb/kubectx/blob/master/kubens] pour naviguer entre les namespaces 
+**kubectx** pour naviguer entre les clusters (https://github.com/ahmetb/kubectx)  
+**kubens** [https://github.com/ahmetb/kubectx/blob/master/kubens] pour naviguer entre les namespaces 
 
 C'est tout pour ce TP. Félicitations !  :ok_hand:
 

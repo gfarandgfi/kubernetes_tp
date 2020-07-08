@@ -1,6 +1,6 @@
 # Travaux pratiques pour formation docker
 
-## TP no 05
+## TP-05
 
 Et pour les montées de version ?
 

@@ -2,7 +2,9 @@
 
 ## TP-02
 
-On m'informe que ce que je déploie dans mon cluster doit être documenté. Je dois donc posséder un copie du code.
+### Les formats de sortie
+
+On m'informe que ce que je déploie dans mon cluster doit être documenté dans un git. Je dois donc posséder un copie du code.
 Malheureusement, j'ai créé mon namespace avec la cli. Vais-je devoir coder du départ ce que j'ai déja fait ?
 
 
@@ -12,23 +14,34 @@ kubectl get namespace <mon_nom> -o yaml
 ```
 La sortie de cette commande est la représentation de mon namespace en format YAML. 
 J'aurais pu avoir une sortie dans d'autres formats. 
+
 ```
 kubectl get namespace <mon_nom> -o json
 ```
 ```
 kubectl get namespace <mon_nom> -o wide
 ```
-YAML et json sont disponibles, ainsi que 'wide' qui se veut quasi-exhaustif, 'name' qui se veut minimal, et un format custom permettant de choisir les colonnes à afficher.
+Le format json est aussi disponible, ainsi que le format wide qui se veut exhaustif, 'name' qui se veut minimal, et un format custom permettant de choisir les colonnes à afficher.
 
-Je dispose maintenant d'une commande qui me permet de voir facilement les manifestes pour ensuite eventuellement les éditer.
+Je dispose maintenant d'une pratique pour voir les manifestes et ensuite les éditer.
 
-Essayons avec un ~~container~~ pod. Lançons un pod contenant un container busybox
+
+### Lancement rapide d'un serveur web
+
+J'ai besoin dans ce namespace d'un ~~container~~ pod avec un serveur web
 ```
-kubectl run busybox --image=busybox
+# Ne lancez pas cette commande
+kubectl run nginx --image=nginx:latest --namespace=<mon_nom>
 ```
+Avec cette commande j'aurai rapidement un serveur web qui tourne dans mon cluster. Il sera dans le bon namespace. 
+Tout ira bien, sauf... qu'il ne sera pas configuré. 
 
-
-Premier container... Qui a dit pod ?
+Si je commence par écrire du code, je pourrai ensuite le modifier pour le configurer. Mais par où commencer ?
+Pas de panique !
+```
+kubectl run nginx --image=nginx:latest --dry-run -o yaml
+```
+J'ai maintenant un squelette de code, et je peux respecter les bonnes pratiques
 
 ### Démarrons notre premier Pod
 

@@ -75,7 +75,7 @@ Obtenir les logs du container:
 kubectl logs <pod> -n <namespace>
 ```
 
-Si cela ne suffit pas, on executer une commande maintenant familière pour entrer dans le container et appliquer des méthodes de diagnostic classiques:
+Si cela ne suffit pas, on executer une commande (maintenant familière) pour entrer dans le container et appliquer des méthodes de diagnostic classiques:
 ```
 kubectl exec -it <pod> -n <namespace> -- bash
 ```
@@ -147,8 +147,8 @@ kubectl config set-context aks-00 --namespace=<namespace>
 A partir de maintenant, le namespace par défaut sera le votre.
 Mais souvenez-vous que certaines ressources sont globales et non liées à un namespace !
 
-Il existe aussi des outils tiers pour faciliter la navigation entre les contextes
-kubectx pour naviguer entre les clusters (https://github.com/ahmetb/kubectx)
+Il existe aussi des outils tiers pour faciliter la navigation entre les contextes  
+kubectx pour naviguer entre les clusters (https://github.com/ahmetb/kubectx)  
 kubens [https://github.com/ahmetb/kubectx/blob/master/kubens] pour naviguer entre les namespaces 
 
 C'est tout pour ce TP. Félicitations !  :ok_hand:

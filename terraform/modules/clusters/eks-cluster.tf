@@ -3,9 +3,6 @@ data "aws_iam_policy_document" "cluster_policy" {
     actions   = [
       "*",
     ]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
-    ]
     effect    = "Allow"
   }
 }

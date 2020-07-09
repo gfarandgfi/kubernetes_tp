@@ -57,7 +57,7 @@ resource "aws_iam_policy" "cluster_policy" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": "*",
+      "Action": ["ec2:*"],
       "Effect": "Allow",
       "Resource": "*"
     }

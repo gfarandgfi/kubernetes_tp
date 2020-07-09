@@ -42,8 +42,9 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
   depends_on = [
     aws_eks_cluster.formation_kubernetes,
-    aws_iam_role_policy_attachment.cluster_role-AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.cluster_role-AmazonEKSServicePolicy,
+    aws_iam_role.cluster_role,
+    # aws_iam_role_policy_attachment.cluster_role-AmazonEKSClusterPolicy,
+    # aws_iam_role_policy_attachment.cluster_role-AmazonEKSServicePolicy,
   ]
 }
 
@@ -69,6 +70,7 @@ EOF
 resource "aws_iam_role" "cluster_role" {
   name = "cluster_role"
   assume_role_policy = aws_iam_policy.cluster_policy.policy
+  depends_on = [aws_iam_policy.cluster_policy]
 }
 
 # resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSClusterPolicy" {

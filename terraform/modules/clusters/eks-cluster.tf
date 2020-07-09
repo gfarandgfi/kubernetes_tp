@@ -21,7 +21,6 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   subnet_ids      = var.subnet_id
   # Node configuration
   instance_types  = [var.aws_instance_type]
-  labels          = var.tags
 
   remote_access {
     ec2_ssh_key = "formation_docker"

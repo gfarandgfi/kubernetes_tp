@@ -41,14 +41,14 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
   depends_on = [
-    aws_iam_role_policy_attachment.eks-cluster-AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.eks-cluster-AmazonEKSServicePolicy,
+    aws_iam_role_policy_attachment.eks-cluster_role-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.eks-cluster_role-AmazonEKSServicePolicy,
   ]
 }
 
 # IAM Role to allow EKS service to manage other AWS services
-resource "aws_iam_role" "cluster-role" {
-  name = "cluster-iam-role"
+resource "aws_iam_role" "cluster_role" {
+  name = "eks-cluster-cluster_role"
 
   assume_role_policy = <<POLICY
 {
@@ -66,16 +66,15 @@ resource "aws_iam_role" "cluster-role" {
 POLICY
 }
 
-resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSClusterPolicy" {
+resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.cluster-role.name
+  role       = "${aws_iam_role.cluster_role.name}"
 }
 
-resource "aws_iam_role_policy_attachment" "eks-cluster-AmazonEKSServicePolicy" {
+resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSServicePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.cluster-role.name
+  role       = "${aws_iam_role.cluster_role.name}"
 }
-
 
 # module "eks" {
 #   source       = "terraform-aws-modules/eks/aws"

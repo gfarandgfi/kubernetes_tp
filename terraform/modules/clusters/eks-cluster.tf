@@ -6,7 +6,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
   tags     = var.tags
 
   vpc_config {
-    security_group_ids = ["var.additional_security_group_ids"]
+    security_group_ids = [var.additional_security_group_ids]
     subnet_ids         = var.subnet_id
   }
 

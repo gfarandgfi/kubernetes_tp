@@ -1,51 +1,12 @@
 data "aws_iam_policy_document" "cluster_policy" {
   statement {
-    actions = [
+    actions   = [
       "*",
     ]
     resources = [
       "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
     ]
-  }
-  statement {
-    actions = [
-      "*",
-    ]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
-    ]
-  }
-  statement {
-    actions = [
-      "*",
-    ]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
-    ]
-  }
-  statement {
-    actions = [
-      "*",
-    ]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEKSServicePolicy",
-    ]
-  }
-  statement {
-    actions = [
-      "*",
-    ]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
-    ]
-  }
-  statement {
-    actions = [
-      "*",
-    ]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy",
-    ]
+    effect    = "Allow"
   }
 }
 

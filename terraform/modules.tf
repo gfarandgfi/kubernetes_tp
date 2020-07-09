@@ -18,7 +18,6 @@ module "clusters" {
   private_subnets               = module.network.cluster_subnet_id
   tags                          = var.tags
   student_names                 = var.student_names
-  node_role_arn                 = var.node_role_arn
 }
 
 module "network" {

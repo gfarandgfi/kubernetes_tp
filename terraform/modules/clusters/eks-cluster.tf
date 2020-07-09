@@ -1,8 +1,27 @@
+data "aws_iam_policy_document" "cluster_policy" {
+  statement {
+    resources = [
+      "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
+      "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",
+      "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+      "arn:aws:iam::aws:policy/AmazonEKSServicePolicy",
+      "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+      "arn:aws:iam::aws:policy/AmazonEKSFargatePodExecutionRolePolicy",
+    ]
+  }
+}
+
+resource "aws_iam_policy" "cluster_policy" {
+  name   = "cluster_policy"
+  path   = "/"
+  policy = data.aws_iam_policy_document.cluster_policy.json
+}
+
 resource "aws_eks_cluster" "formation_kubernetes" {
   version  = "1.16"
   for_each = var.student_names
   name     = each.value
-  role_arn = var.node_role_arn
+  role_arn = aws_iam_policy.cluster_policy.arn
   tags     = var.tags
 
   vpc_config {
@@ -22,7 +41,7 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
   cluster_name    = each.value
   node_group_name = "node_group-${each.value}"
-  node_role_arn   = var.node_role_arn
+  node_role_arn   = aws_iam_policy.cluster_policy.arn
   subnet_ids      = var.subnet_id
   # Node configuration
   instance_types  = [var.aws_instance_type]

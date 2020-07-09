@@ -69,7 +69,7 @@ EOF
 # IAM Role to allow EKS service to manage other AWS services
 resource "aws_iam_role" "cluster_role" {
   name = "cluster_role"
-  assume_role_policy = aws_iam_policy.cluster_policy.policy
+  assume_role_policy = jsonencode(aws_iam_policy.cluster_policy.policy)
   depends_on = [aws_iam_policy.cluster_policy]
 }
 

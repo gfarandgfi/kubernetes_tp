@@ -18,3 +18,7 @@ module "cluster" {
   private_subnets               = module.network.subnet_id
 }
 
+module "network" {
+  source = "./modules/network"
+}
+

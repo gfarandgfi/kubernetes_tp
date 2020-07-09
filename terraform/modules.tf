@@ -19,6 +19,7 @@ module "cluster" {
 }
 
 module "network" {
-  source = "./modules/network"
+  source  = "./modules/network"
+  tags    = var.tags
 }
 

@@ -1,5 +1,5 @@
 resource "aws_subnet" "formation_kubernetes" {
-  vpc_id            = module.vpc.vpc_id
+  vpc_id            = aws_vpc.formation_kubernetes.id
   cidr_block        = var.subnet_cidr_block
   availability_zone = var.aws_default_zone
   tags              = var.tags

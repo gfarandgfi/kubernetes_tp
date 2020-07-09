@@ -9,7 +9,7 @@ module "instances" {
   student_names       = var.student_names
 }
 
-module "cluster" {
+module "clusters" {
   source                        = "./modules/clusters"
   additional_security_group_ids = module.network.additional_security_group_ids
   student_names                 = var.student_names

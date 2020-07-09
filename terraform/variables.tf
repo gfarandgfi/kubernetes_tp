@@ -17,3 +17,14 @@ variable "tags" {
   description = "The tags for the resources that will be deployed"
   type = map(string)
 }
+
+variable "aws_instance_ami" {
+  description = "The AMI for the OS. Defaults to Debian Buster"
+  type        = string
+}
+
+variable "aws_default_zone" {
+  description = "Default zone for the resources that will be deployed"
+  type        = string
+}
+

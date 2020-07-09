@@ -1,9 +1,17 @@
-# output "all_public_info" {
-#   value = {
-#     for student_names in aws_eks_cluster.formation_kubernetes:
-#       student_names.endpoint => student_names.certificate_authority
-#   }
-# }
+output "all_endpoints" {
+  value = {
+    for student_names in aws_eks_cluster.formation_kubernetes:
+      student_names.name => student_names.endpoint
+  }
+}
+
+# Add the result of this to the certificate-authority-data section of the kubeconfig file for each cluster.
+outputs "all_certificates" {
+  value = {
+    for student_names in aws_eks_cluster.formation kubernetes:
+      student_names.name => student_names.certificate_authority.data
+  }
+}
 
 output "all_public_info" {
   value = {

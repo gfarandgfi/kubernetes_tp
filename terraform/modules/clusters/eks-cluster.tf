@@ -20,7 +20,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 
 resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
-  cluster_name    = each.key
+  cluster_name    = each.value
   node_group_name = "node_group-${each.key}"
   node_role_arn   = aws_iam_role.cluster-role.arn
   subnet_ids      = var.subnet_id

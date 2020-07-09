@@ -5,7 +5,3 @@ output "all_cluster_info" {
 output "all_instance_info" {
   value = module.instances.all_public_info
 }
-
-output "cluster_names" {
-  value = module.clusters.cluster_names
-}

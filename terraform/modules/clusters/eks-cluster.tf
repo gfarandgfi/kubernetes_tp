@@ -13,8 +13,8 @@ resource "aws_eks_cluster" "formation_kubernetes" {
   # Ensure that IAM Role permissions are created before and deleted after EKS Cluster handling.
   # Otherwise, EKS will not be able to properly delete EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
-    aws_iam_role_policy_attachment.eks-cluster-AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.eks-cluster-AmazonEKSServicePolicy,
+    aws_iam_role_policy_attachment.cluster_role-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.cluster_role-AmazonEKSServicePolicy,
   ]
 }
 
@@ -22,7 +22,7 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
   cluster_name    = each.value
   node_group_name = "node_group-${each.value}"
-  node_role_arn   = aws_iam_role.cluster-role.arn
+  node_role_arn   = aws_iam_role.cluster_role.arn
   subnet_ids      = var.subnet_id
   # Node configuration
   instance_types  = [var.aws_instance_type]
@@ -41,8 +41,8 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
   # Otherwise, EKS will not be able to properly delete EC2 Instances and Elastic Network Interfaces.
   depends_on = [
-    aws_iam_role_policy_attachment.eks-cluster_role-AmazonEKSClusterPolicy,
-    aws_iam_role_policy_attachment.eks-cluster_role-AmazonEKSServicePolicy,
+    aws_iam_role_policy_attachment.cluster_role-AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.cluster_role-AmazonEKSServicePolicy,
   ]
 }
 

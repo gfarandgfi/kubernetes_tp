@@ -7,3 +7,4 @@ variable "subnet_cidr_block" {}
 
 variable "aws_default_zone" {}
 
+variable "subnet_tags" {}

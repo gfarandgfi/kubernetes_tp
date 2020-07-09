@@ -31,3 +31,5 @@ variable "aws_default_zone" {
 variable "role_arn" {}
 
 variable "node_role_arn" {}
+
+variable "subnet_tags" {}

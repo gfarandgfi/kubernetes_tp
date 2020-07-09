@@ -13,6 +13,11 @@ aws_default_zone = "eu-west-3a"
 # The type of instance that will be deployed
 aws_instance_type = "t2.medium"
 
+role_arn = "arn:aws:iam::212063436693:role/ec2_root"
+
+node_role_arn   = "arn:aws:iam::212063436693:role/nodeGroupRole"
+
+
 # The name of the students. Must be a map of strings.
 # One cluster will be deployed per student_name
 student_names = {

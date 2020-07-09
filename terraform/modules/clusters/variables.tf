@@ -24,3 +24,6 @@ variable "subnet_id" {}
 
 variable "aws_instance_type" {}
 
+variable "role_arn" {}
+
+variable "node_role_arn" {}

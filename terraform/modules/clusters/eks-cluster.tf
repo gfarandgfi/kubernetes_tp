@@ -3,6 +3,9 @@ data "aws_iam_policy_document" "cluster_policy" {
     actions   = [
       "*",
     ]
+    resources = [
+      "*",
+    ]
     effect    = "Allow"
   }
 }

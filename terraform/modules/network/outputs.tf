@@ -9,3 +9,7 @@ output "additional_security_group_ids" {
 output "subnet_id" {
   value = module.vpc.private_subnets
 }
+
+output "node_status" {
+  value = module.clusters.node_status
+}

@@ -3,11 +3,6 @@ variable "student_names" {
   type        = map(string)
 }
 
-variable "aws_instance_type" {
-  description = "The type of instance that will be deployed as worker nodes"
-  type = string
-}
-
 variable "tags" {
   description = "The tags that will be applied to the resources"
   type = map(string)
@@ -23,4 +18,9 @@ variable "additional_security_group_ids" {
 
 variable "private_subnets" {
   description = "The subnets on which the clusters will be created"
+}
+
+variable "k8s_master_version" {
+  description = "The version of the kubernetes master"
+  type = string
 }

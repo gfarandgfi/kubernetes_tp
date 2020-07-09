@@ -4,7 +4,7 @@ variable "aws_default_region" {
 }
 
 variable "aws_instance_type" {
-  descritpion = "The type of instance that will be deployed as worker node"
+  description = "The type of instance that will be deployed as worker node"
   type = string
 }
 
@@ -13,6 +13,6 @@ variable "student_names" {
   type = map(string)
 }
 
-tags = {
-    Environment = "formation_kubernetes"
-  }
+variable "tags" {
+  description = "The tags for the resources that will be deployed"
+  type = map(string)

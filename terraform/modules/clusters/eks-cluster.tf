@@ -21,7 +21,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
   cluster_name    = each.value
-  node_group_name = "node_group-${each.key}"
+  node_group_name = "node_group-${each.value}"
   node_role_arn   = aws_iam_role.cluster-role.arn
   subnet_ids      = var.subnet_id
   # Node configuration
@@ -30,7 +30,6 @@ resource "aws_eks_node_group" "formation_kubernetes" {
 
   remote_access {
     ec2_ssh_key = "formation_docker"
-    source_security_group_ids = ["var.additional_security_group_ids"]
   }
 
   scaling_config {

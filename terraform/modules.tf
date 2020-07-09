@@ -13,5 +13,5 @@ module "cluster" {
   source                        = "./modules/clusters"
   additional_security_group_ids = module.network.additional_security_group_ids
   student_names                 = var.student_names
-  version                       = var.k8s_master_version
-}
+}  version                      = ">=1.16"
+

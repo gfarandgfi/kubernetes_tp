@@ -5,8 +5,6 @@ aws_default_region = "eu-west-3"
 # The type of instance that will be deployed
 aws_instance_type = "t2.medium"
 
-k8s_master_version = ">=1.16"
-
 # The name of the students. Must be a map of strings.
 # One cluster will be deployed per student_name
 student_names = {

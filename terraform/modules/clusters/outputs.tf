@@ -6,7 +6,16 @@ output "all_public_info" {
 }
 
 output "kubeconfig-certificate-authority-data" {
-  value = aws_eks_cluster.formation_kubernetes.certificate_authority.[*].data
+  value = {
+    for student_names in aws_eks_cluster.sudent:student_names.certificate_authority
+  }
+}
+
+output "all_public_info" {
+  value = {
+    for student_names in aws_instance.student:
+      student_names.public_ip => student_names.public_dns
+  }
 }
 
 output "node_status" {

@@ -7,9 +7,9 @@ resource "aws_subnet" "formation_kubernetes" {
   depends_on = [module.vpc]
 }
 
-resource "aws_internet_gateway" "formation_kubernetes" {
-  vpc_id = module.vpc.vpc_id
-  tags   = var.tags
+# resource "aws_internet_gateway" "formation_kubernetes" {
+#   vpc_id = module.vpc.vpc_id
+#   tags   = var.tags
 
-  depends_on = [aws_subnet.formation_kubernetes]
-}
+#   depends_on = [aws_subnet.formation_kubernetes]
+# }

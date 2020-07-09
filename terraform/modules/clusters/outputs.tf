@@ -5,12 +5,6 @@ output "all_public_info" {
   }
 }
 
-output "kubeconfig-certificate-authority-data" {
-  value = {
-    for student_names in aws_eks_cluster.sudent:student_names.certificate_authority
-  }
-}
-
 output "all_public_info" {
   value = {
     for student_names in aws_instance.student:

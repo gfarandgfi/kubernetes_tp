@@ -1,8 +1,6 @@
 data "aws_iam_policy_document" "nodes_policy" {
   statement {
-    actions   = [
-      "*",
-    ]
+    actions   = ["sts:AssumeRole"]
     resources = [
       "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
     ]
@@ -10,9 +8,7 @@ data "aws_iam_policy_document" "nodes_policy" {
   }
 
   statement {
-    actions   = [
-      "*",
-    ]
+    actions   = ["sts:AssumeRole"]
     resources = [
       "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
     ]
@@ -20,9 +16,7 @@ data "aws_iam_policy_document" "nodes_policy" {
   }
 
   statement {
-    actions   = [
-      "*",
-    ]
+    actions   = ["sts:AssumeRole"]
     resources = [
       "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
     ]
@@ -30,17 +24,18 @@ data "aws_iam_policy_document" "nodes_policy" {
   }
 }
 
+# resource "aws_iam_policy" "nodes_policy" {
+#   name   = "cluster_policy"
+#   path   = "/"
+#   policy = data.aws_iam_policy_document.nodes_policy.json
+# }
+
 resource "aws_iam_role" "nodes_policy" {
   name               = "instance_role"
   path               = "/system/"
   assume_role_policy = data.aws_iam_policy_document.nodes_policy.json
 }
 
-# resource "aws_iam_policy" "nodes_policy" {
-#   name   = "cluster_policy"
-#   path   = "/"
-#   policy = data.aws_iam_policy_document.nodes_policy.json
-# }
 
 resource "aws_eks_cluster" "formation_kubernetes" {
   version  = "1.16"

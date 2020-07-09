@@ -1,5 +1,10 @@
-output "all_cluster_info" {
-  value = module.clusters.all_public_info
+output "all_endpoints" {
+  value = module.clusters.all_endpoints
+}
+
+# Add the result of this to the certificate-authority-data section of the kubeconfig file for each cluster.
+output "all_certificates" {
+  value = module.clusters.all_certificates
 }
 
 output "all_instance_info" {

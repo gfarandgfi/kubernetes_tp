@@ -1,42 +1,3 @@
-data "aws_iam_policy_document" "nodes_policy" {
-  statement {
-    actions   = ["sts:AssumeRole"]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
-    ]
-    effect    = "Allow"
-  }
-
-  statement {
-    actions   = ["sts:AssumeRole"]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
-    ]
-    effect    = "Allow"
-  }
-
-  statement {
-    actions   = ["sts:AssumeRole"]
-    resources = [
-      "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
-    ]
-    effect    = "Allow"
-  }
-}
-
-# resource "aws_iam_policy" "nodes_policy" {
-#   name   = "cluster_policy"
-#   path   = "/"
-#   policy = data.aws_iam_policy_document.nodes_policy.json
-# }
-
-resource "aws_iam_role" "nodes_policy" {
-  name               = "instance_role"
-  path               = "/system/"
-  assume_role_policy = data.aws_iam_policy_document.nodes_policy.json
-}
-
-
 resource "aws_eks_cluster" "formation_kubernetes" {
   version  = "1.16"
   for_each = var.student_names
@@ -62,7 +23,8 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
   cluster_name    = each.value
   node_group_name = "node_group-${each.value}"
-  node_role_arn   = aws_iam_role.nodes_policy.arn
+  # Hardcoded ARN. Should not be in a future version
+  node_role_arn   = "arn:aws:iam::212063436693:role/nodeGroupRole"
   subnet_ids      = var.subnet_id
   # Node configuration
   instance_types  = [var.aws_instance_type]

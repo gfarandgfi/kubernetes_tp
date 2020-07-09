@@ -1,16 +1,36 @@
-data "aws_iam_policy_document" "cluster_policy" {
+data "aws_iam_policy_document" "nodes_policy" {
   statement {
     actions   = [
       "*",
     ]
     resources = [
+      "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+    ]
+    effect    = "Allow"
+  }
+
+  statement {
+    actions   = [
       "*",
+    ]
+    resources = [
+      "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+    ]
+    effect    = "Allow"
+  }
+
+  statement {
+    actions   = [
+      "*",
+    ]
+    resources = [
+      "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly",
     ]
     effect    = "Allow"
   }
 }
 
-resource "aws_iam_policy" "cluster_policy" {
+resource "aws_iam_policy" "nodes_policy" {
   name   = "cluster_policy"
   path   = "/"
   policy = data.aws_iam_policy_document.cluster_policy.json
@@ -20,6 +40,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
   version  = "1.16"
   for_each = var.student_names
   name     = each.value
+  # Hardcoded ARN. Should not be in a future version
   role_arn = "arn:aws:iam::212063436693:role/ec2_root"
   tags     = var.tags
 

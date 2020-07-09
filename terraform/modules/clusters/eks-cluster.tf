@@ -47,35 +47,39 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   ]
 }
 
-# IAM Role to allow EKS service to manage other AWS services
-resource "aws_iam_role" "cluster_role" {
-  name = "eks-cluster-cluster_role"
 
-  assume_role_policy = <<POLICY
+resource "aws_iam_policy" "cluster_policy" {
+  name        = "cluster_policy"
+  path        = "/"
+  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Action": [*],
       "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
+      "Resource": "*"
     }
   ]
 }
-POLICY
+EOF
 }
 
-resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSClusterPolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = aws_iam_role.cluster_role.name
+# IAM Role to allow EKS service to manage other AWS services
+resource "aws_iam_role" "cluster_role" {
+  name = "cluster_role"
+  assume_role_policy = aws_iam_policy.cluster_policy.policy
 }
 
-resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSServicePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
-  role       = aws_iam_role.cluster_role.name
-}
+# resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSClusterPolicy" {
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+#   role       = aws_iam_role.cluster_role.name
+# }
+
+# resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSServicePolicy" {
+#   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+#   role       = aws_iam_role.cluster_role.name
+# }
 
 # module "eks" {
 #   source       = "terraform-aws-modules/eks/aws"

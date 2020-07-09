@@ -23,7 +23,6 @@ module "clusters" {
 module "network" {
   source            = "./modules/network"
   aws_default_zone    = var.aws_default_zone
-  vpc_cidr_block    = "172.16.0.0/16"
   subnet_cidr_block = "172.16.0.0/24"
   tags              = var.tags
 }

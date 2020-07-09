@@ -23,3 +23,5 @@ variable "private_subnets" {
 variable "subnet_id" {}
 
 variable "aws_instance_type" {}
+
+variable "node_role_arn" {}

@@ -28,3 +28,4 @@ variable "aws_default_zone" {
   type        = string
 }
 
+variable "node_role_arn" {}

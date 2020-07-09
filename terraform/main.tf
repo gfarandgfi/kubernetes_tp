@@ -16,3 +16,4 @@
 ## (master machines) install kubectl and git binaries
 ## (master machines) bind internet gateway to routing table
 ## (master machines) automatic install of generated kubeconfig
+## (node groups) define role policy

@@ -22,7 +22,7 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
   cluster_name    = each.value
   node_group_name = "node_group-${each.value}"
-  node_role_arn   = aws_iam_role.cluster_role.arn
+  node_role_arn   = var.node_role_arn
   subnet_ids      = var.subnet_id
   # Node configuration
   instance_types  = [var.aws_instance_type]
@@ -49,29 +49,21 @@ resource "aws_eks_node_group" "formation_kubernetes" {
 }
 
 
-resource "aws_iam_policy" "cluster_policy" {
-  name        = "cluster_policy"
-  path        = "/"
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": ["ec2:Describe*"],
-      "Effect": "Allow",
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-}
+# resource "aws_iam_policy" "cluster_policy" {
+#   name        = "cluster_policy"
+#   path        = "/"
+#   policy = file(./files/policy.json)
+#   ]
+# }
+# EOF
+# }
 
-# IAM Role to allow EKS service to manage other AWS services
-resource "aws_iam_role" "cluster_role" {
-  name = "cluster_role"
-  assume_role_policy = aws_iam_policy.cluster_policy.policy
-  depends_on = [aws_iam_policy.cluster_policy]
-}
+# # IAM Role to allow EKS service to manage other AWS services
+# resource "aws_iam_role" "cluster_role" {
+#   name = "cluster_role"
+#   assume_role_policy = aws_iam_policy.cluster_policy.policy
+#   depends_on = [aws_iam_policy.cluster_policy]
+# }
 
 # resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSClusterPolicy" {
 #   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"

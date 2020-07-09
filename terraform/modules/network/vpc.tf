@@ -15,7 +15,7 @@ resource "aws_subnet" "formation_kubernetes" {
   cidr_block              = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   for_each                = var.student_names
   tags                    = [
-    " kubernetes.io/cluster/${each.value}" = "shared"
+    " kubernetes.io/cluster/${each.value}" = "shared",
   ]
 
   depends_on = [aws_vpc.formation_kubernetes]

@@ -15,6 +15,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
   cluster_name    = each.value
+  node_role_arn   = var.node_role_arn
   node_group_name = "node_group-${each.value}"
   # Hardcoded ARN. Should not be in a future version
   subnet_ids      = var.subnet_id

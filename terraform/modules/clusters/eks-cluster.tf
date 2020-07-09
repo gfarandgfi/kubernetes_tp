@@ -24,7 +24,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
   version  = "1.16"
   for_each = var.student_names
   name     = each.value
-  role_arn = aws_iam_policy.cluster_policy.arn
+  role_arn = "arn:aws:iam::212063436693:role/ec2_root"
   tags     = var.tags
 
   vpc_config {

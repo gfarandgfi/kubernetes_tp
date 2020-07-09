@@ -1,5 +1,8 @@
 data "aws_iam_policy_document" "cluster_policy" {
   statement {
+    actions = [
+      "*",
+    ]
     resources = [
       "arn:aws:iam::aws:policy/AmazonEC2FullAccess",
       "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy",

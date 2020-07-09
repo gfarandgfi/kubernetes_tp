@@ -16,6 +16,8 @@ module "clusters" {
   tags                          = var.tags
   vpc_id                        = module.network.vpc_id
   private_subnets               = module.network.subnet_id
+  subnet_id                     = module.network.subnet_id
+  aws_instance_type             = var.aws_instance_type
 }
 
 module "network" {

@@ -24,11 +24,3 @@ module "network" {
   source  = "./modules/network"
   tags    = var.tags
 }
-
-output "cluster_subnet_id" {
-  value = module.vpc.private_subnets
-}
-
-output "instances_subnet_id" {
-  value = aws_subnet.formation_kubernetes.id
-}

@@ -13,6 +13,7 @@ module "clusters" {
   source                        = "./modules/clusters"
   aws_instance_type             = var.aws_instance_type
   role_arn                      = var.role_arn
+  node_role_arn                 = var.node_role_arn
   additional_security_group_ids = module.network.additional_security_group_ids
   vpc_id                        = module.network.vpc_id
   subnet_id                     = module.network.cluster_subnet_id

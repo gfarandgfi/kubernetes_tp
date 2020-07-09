@@ -15,12 +15,6 @@ module "vpc" {
   enable_nat_gateway   = true
   single_nat_gateway   = true
   enable_dns_hostnames = true
-
-  tags = var.tags
-
-  public_subnet_tags = var.tags
-
-  private_subnet_tags = var.tags
 }
 
 

@@ -6,7 +6,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
   tags     = var.tags
 
   vpc_config {
-    security_group_ids = var.additional_security_group_ids
+    security_group_ids = ["var.additional_security_group_ids"]
     subnet_ids         = var.subnet_id
   }
 
@@ -25,12 +25,12 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   node_role_arn   = aws_iam_role.cluster-role.arn
   subnet_ids      = var.subnet_id
   # Node configuration
-  instance_types  = var.aws_instance_type
+  instance_types  = [var.aws_instance_type]
   labels          = var.tags
 
   remote_access {
     ec2_ssh_key = "formation_docker"
-    source_security_group_ids = var.additional_security_group_ids
+    source_security_group_ids = ["var.additional_security_group_ids"]
   }
 
   scaling_config {

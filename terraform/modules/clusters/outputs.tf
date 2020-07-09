@@ -11,3 +11,9 @@ output "node_status" {
       student_names.id => student_names.status
   }
 }
+
+output "cluster names" {
+  value = {
+    for student_names in aws_eks_cluster.formation_kubernetes:student_names.name
+  }
+}

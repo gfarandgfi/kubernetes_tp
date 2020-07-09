@@ -13,3 +13,4 @@ output "cluster_subnet_id" {
 output "instances_subnet_id" {
   value = aws_subnet.formation_kubernetes.id
 }
+

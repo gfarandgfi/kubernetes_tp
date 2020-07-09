@@ -2,7 +2,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
   version  = "1.16"
   for_each = var.student_names
   name     = each.value
-  role_arn = aws_iam_role.cluster_role.arn
+  role_arn = var.node_role_arn
   tags     = var.tags
 
   vpc_config {

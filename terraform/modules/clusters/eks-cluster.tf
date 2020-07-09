@@ -67,7 +67,7 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
   cluster_name    = each.value
   node_group_name = "node_group-${each.value}"
-  node_role_arn   = aws_iam_policy.nodes_policy.arn
+  node_role_arn   = aws_iam_role.nodes_policy.arn
   subnet_ids      = var.subnet_id
   # Node configuration
   instance_types  = [var.aws_instance_type]

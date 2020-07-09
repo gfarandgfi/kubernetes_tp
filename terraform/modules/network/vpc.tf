@@ -17,10 +17,10 @@ module "vpc" {
   enable_dns_hostnames = true
   for_each             = var.student_names
   public_subnet_tags   = {
-    kubernetes.io/cluster/${each.value} = shared
+    "kubernetes.io/cluster/${each.value}" = "shared"
   }
   private_subnet_tags  = {
-    kubernetes.io/cluster/${each.value} = shared
+    "kubernetes.io/cluster/${each.value}" = "shared"
   }
 }
 

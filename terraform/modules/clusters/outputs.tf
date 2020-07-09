@@ -9,8 +9,7 @@ output "all_endpoints" {
 output "all_certificates" {
   value = {
     for student_names in aws_eks_cluster.formation_kubernetes:
-      student_names.name => student_names.certificate_authority.data
-  }
+      student_names.name => student_names.certificate_authority
 }
 
 # output "node_status" {

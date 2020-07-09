@@ -19,3 +19,7 @@ variable "additional_security_group_ids" {
 variable "private_subnets" {
   description = "The subnets on which the clusters will be created"
 }
+
+variable "subnet_id" {}
+
+variable "aws_instance_type" {}

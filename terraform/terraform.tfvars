@@ -15,7 +15,7 @@ aws_instance_type = "t2.medium"
 
 # The role containing the permission for the cluster node. 
 # Is hardcoded at the moment but shouldn't be in a future version
-node_role_arn = arn:aws:iam::212063436693:instance-profile/ec2_root
+node_role_arn = "arn:aws:iam::212063436693:instance-profile/ec2_root"
 
 # The name of the students. Must be a map of strings.
 # One cluster will be deployed per student_name

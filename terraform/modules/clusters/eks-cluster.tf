@@ -57,7 +57,7 @@ resource "aws_iam_policy" "cluster_policy" {
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Action": ["*"],
+      "Action": "*",
       "Effect": "Allow",
       "Resource": "*"
     }
@@ -69,7 +69,7 @@ EOF
 # IAM Role to allow EKS service to manage other AWS services
 resource "aws_iam_role" "cluster_role" {
   name = "cluster_role"
-  assume_role_policy = jsonencode(aws_iam_policy.cluster_policy.policy)
+  assume_role_policy = aws_iam_policy.cluster_policy.policy
   depends_on = [aws_iam_policy.cluster_policy]
 }
 
@@ -81,35 +81,4 @@ resource "aws_iam_role" "cluster_role" {
 # resource "aws_iam_role_policy_attachment" "cluster_role-AmazonEKSServicePolicy" {
 #   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
 #   role       = aws_iam_role.cluster_role.name
-# }
-
-# module "eks" {
-#   source       = "terraform-aws-modules/eks/aws"
-#   student_names = var.student_names
-#   for_each = var.student_names
-#   cluster_name = each.value
-
-#   subnets      = var.private_subnets
-
-#   tags = var.tags
-
-#   vpc_id = var.vpc_id
-
-#   worker_groups = [
-#     {
-#       name                          = "worker-group-1"
-#       instance_type                 = var.aws_instance_type
-#       additional_userdata           = "formation_kubernetes"
-#       asg_desired_capacity          = 1
-#       additional_security_group_ids = [var.additional_security_group_ids]
-#     },
-#   ]
-# }
-
-# data "aws_eks_cluster" "cluster" {
-#   name = module.eks.cluster_id
-# }
-
-# data "aws_eks_cluster_auth" "cluster" {
-#   name = module.eks.cluster_id
 # }

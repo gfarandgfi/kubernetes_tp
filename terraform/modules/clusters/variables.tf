@@ -19,8 +19,3 @@ variable "additional_security_group_ids" {
 variable "private_subnets" {
   description = "The subnets on which the clusters will be created"
 }
-
-variable "k8s_master_version" {
-  description = "The version of the kubernetes master"
-  type = string
-}

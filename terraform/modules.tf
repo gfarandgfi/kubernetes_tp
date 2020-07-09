@@ -13,5 +13,8 @@ module "cluster" {
   source                        = "./modules/clusters"
   additional_security_group_ids = module.network.additional_security_group_ids
   student_names                 = var.student_names
+  tags                          = var.tags
+  vpc_id                        = module.network.vpc_id
+  private_subnets               = module.network.subnet_id
 }
 

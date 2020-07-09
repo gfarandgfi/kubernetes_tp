@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "nodes_policy" {
 resource "aws_iam_policy" "nodes_policy" {
   name   = "cluster_policy"
   path   = "/"
-  policy = data.aws_iam_policy_document.cluster_policy.json
+  policy = data.aws_iam_policy_document.nodes_policy.json
 }
 
 resource "aws_eks_cluster" "formation_kubernetes" {
@@ -61,7 +61,7 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   for_each        = var.student_names
   cluster_name    = each.value
   node_group_name = "node_group-${each.value}"
-  node_role_arn   = aws_iam_policy.cluster_policy.arn
+  node_role_arn   = aws_iam_policy.nodes_policy.arn
   subnet_ids      = var.subnet_id
   # Node configuration
   instance_types  = [var.aws_instance_type]

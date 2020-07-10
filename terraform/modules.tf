@@ -27,8 +27,8 @@ module "network" {
   source                        = "./modules/network"
   aws_default_zone              = var.aws_default_zone
   vpc_cidr_block                = "10.0.0.0/16"
-  subnet_instances_cidr_block   = "10.0.1.0/24"
-  subnet_clusters_a_cidr_block  = "10.0.2.0/24"
-  subnet_clusters_b_cidr_block  = "10.0.3.0/24"
+  subnet_instances_cidr_block   = "10.1.0.0/24"
+  subnet_clusters_a_cidr_block  = "10.2.0.0/24"
+  subnet_clusters_b_cidr_block  = "10.3.0.0/24"
   tags                          = var.tags
 }

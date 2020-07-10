@@ -12,3 +12,5 @@ variable "subnet_clusters_a_cidr_block" {}
 variable "subnet_clusters_b_cidr_block" {}
 
 variable "aws_default_zone" {}
+
+variable "student_names" {}

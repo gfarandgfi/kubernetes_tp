@@ -28,7 +28,7 @@ resource "aws_subnet" "formation_kubernetes_clusters" {
   for_each          = data.aws_availability_zones.available.names
   availability_zone = each.key
   vpc_id            = aws_vpc.formation_kubernetes.id
-  cidr_block        = "10.20.${10+count.index}.0/24"
+  cidr_block        = "10.20.${10+each.key}.0/24"
   tags              = var.tags
 
   depends_on = [aws_vpc.formation_kubernetes]

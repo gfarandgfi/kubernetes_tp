@@ -8,5 +8,3 @@ variable "subnet_instances_cidr_block" {}
 variable "subnet_clusters_cidr_block" {}
 
 variable "aws_default_zone" {}
-
-variable "subnet_tags" {}

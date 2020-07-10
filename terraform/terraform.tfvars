@@ -25,5 +25,6 @@ student_names = {
 
 # The tags that will be applied to all resources
 tags = {
+    Name        = "formation_kubernetes"
     Environment = "formation_kubernetes"
   }

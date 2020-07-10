@@ -1,7 +1,7 @@
 resource "aws_security_group" "open_all" {
   name        = "open_all"
   description = "allow all traffic in and out"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = aws_vpc.formation_kubernetes.id
 
   ingress {
     from_port   = 0

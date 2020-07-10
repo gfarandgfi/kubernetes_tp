@@ -12,11 +12,11 @@ variable "vpc_id" {
   description = "The VPC the clusters will be created on"
 }
 
-variable "additional_security_group_ids" {
+variable "security_group_ids" {
   description = "The IDs of the additional security groups"
 }
 
-variable "private_subnets" {
+variable "clusters_subnet_id" {
   description = "The subnets on which the clusters will be created"
 }
 

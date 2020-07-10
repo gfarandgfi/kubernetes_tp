@@ -7,7 +7,7 @@ output "security_group_ids" {
 }
 
 output "clusters_subnet_id" {
-  value = aws_subnet.formation_kubernetes_clusters[count.index].id
+  value = aws_subnet.formation_kubernetes_clusters[*].id
 }
 
 output "instances_subnet_id" {

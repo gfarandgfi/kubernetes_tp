@@ -31,5 +31,3 @@ student_names = {
 tags = {
     Environment = "formation_kubernetes"
   }
-
-subnet_tags = {

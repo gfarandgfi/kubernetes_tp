@@ -21,8 +21,9 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 # Fetch an ami for the nodes
 data "aws_ami" "eks-worker" {
   filter {
-    name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.formation_kubernetes[*].version}-v*"]
+    for each = var.student_names
+    name     = "name"
+    values   = ["amazon-eks-node-${aws_eks_cluster.formation_kubernetes[each.value].version}-v*"]
   }
 
   most_recent = true

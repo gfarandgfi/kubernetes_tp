@@ -29,6 +29,6 @@ module "network" {
   vpc_cidr_block                = "10.0.0.0/16"
   subnet_instances_cidr_block   = "10.0.0.0/18"
   subnet_clusters_a_cidr_block  = "10.0.64.0/18"
-  subnet_clusters_b_cidr_block  = "10.3.128.0/18"
+  subnet_clusters_b_cidr_block  = "10.0.128.0/18"
   tags                          = var.tags
 }

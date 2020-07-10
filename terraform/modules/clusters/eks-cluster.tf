@@ -22,7 +22,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 data "aws_ami" "eks-worker" {
   filter {
     name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.formation_kubernetes[each.value].version}-v*"]
+    values = ["amazon-eks-node-${aws_eks_cluster.formation_kubernetes.version}-v*"]
   }
 
   most_recent = true
@@ -30,8 +30,9 @@ data "aws_ami" "eks-worker" {
 }
 
 resource "aws_eks_node_group" "formation_kubernetes" {
-  cluster_name    = aws_eks_cluster.formation_kubernetes[each.value].name
-  node_group_name = "node_group-${aws_eks_cluster.formation_kubernetes[each.value].name}"
+  for_each        = var.student_names
+  cluster_name    = each.value
+  node_group_name = "main_node_group-${each.value}"
   node_role_arn   = aws_iam_role.main-node.arn
   subnet_ids      = var.clusters_subnet_id
   # Node configuration

@@ -22,7 +22,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 data "aws_ami" "eks-worker" {
   filter {
     name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.main.version}-v*"]
+    values = ["amazon-eks-node-${aws_eks_cluster.formation_kubernetes.version}-v*"]
   }
 
   most_recent = true
@@ -49,6 +49,32 @@ resource "aws_eks_node_group" "formation_kubernetes" {
     min_size     = 1
   }
 
-  depends_on = [aws_eks_cluster.formation_kubernetes]
+  depends_on = [
+    aws_eks_cluster.formation_kubernetes
+    aws_iam_role_policy_attachment.main-node-AmazonEKSWorkerNodePolicy,
+    aws_iam_role_policy_attachment.main-node-AmazonEKS_CNI_Policy,
+    aws_iam_role_policy_attachment.main-node-AmazonEC2ContainerRegistryReadOnly,
+    aws_iam_role_policy_attachment.main-node-AmazonEC2FullAccess
+    ]
 }
 
+
+resource "aws_iam_role_policy_attachment" "main-node-AmazonEKSWorkerNodePolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  role       = aws_iam_role.main-node.name
+}
+
+resource "aws_iam_role_policy_attachment" "main-node-AmazonEKS_CNI_Policy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+  role       = aws_iam_role.main-node.name
+}
+
+resource "aws_iam_role_policy_attachment" "main-node-AmazonEC2ContainerRegistryReadOnly" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.main-node.name
+}
+
+resource "aws_iam_role_policy_attachment" "main-node-AmazonEC2FullAccess" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+  role       = aws_iam_role.main-node.name
+}

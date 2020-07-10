@@ -72,10 +72,10 @@ resource "aws_iam_role_policy_attachment" "main-node-AmazonEC2FullAccess" {
   role       = aws_iam_role.main-node.name
 }
 
-resource "aws_iam_role_policy_attachment" "main-node-alb-ingress_policy" {
-  policy_arn = aws_iam_policy.alb-ingress.arn
-  role       = aws_iam_role.main-node.name
-}
+# resource "aws_iam_role_policy_attachment" "main-node-alb-ingress_policy" {
+#   policy_arn = aws_iam_policy.alb-ingress.arn
+#   role       = aws_iam_role.main-node.name
+# }
 
 # # Create an instance profile based on the role
 # resource "aws_iam_instance_profile" "main-node" {

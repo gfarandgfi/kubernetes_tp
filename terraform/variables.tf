@@ -27,7 +27,3 @@ variable "aws_default_zone" {
   description = "Default zone for the resources that will be deployed"
   type        = string
 }
-
-# variable "role_arn" {}
-
-# variable "node_role_arn" {}

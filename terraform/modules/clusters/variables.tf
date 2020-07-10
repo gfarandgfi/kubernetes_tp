@@ -16,10 +16,6 @@ variable "security_group_ids" {
   description = "The IDs of the additional security groups"
 }
 
-variable "clusters_subnet_id" {
-  description = "The subnets on which the clusters will be created"
-}
-
 variable "aws_instance_type" {}
 
 variable "role_arn" {}

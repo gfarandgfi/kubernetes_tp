@@ -44,8 +44,6 @@ resource "aws_subnet" "formation_kubernetes_clusters_a" {
   vpc_id            = aws_vpc.formation_kubernetes.id
   cidr_block        = var.subnet_clusters_a_cidr_block
   tags              = {
-    Name        = "formation_kubernetes",
-    Environment = "formation_kubernetes",
     Key         = "kubernetes.io/cluster/${var.cluster_name}" ,
     Value       = "shared",
   }
@@ -56,8 +54,6 @@ resource "aws_subnet" "formation_kubernetes_clusters_b" {
   vpc_id            = aws_vpc.formation_kubernetes.id
   cidr_block        = var.subnet_clusters_b_cidr_block
   tags              = {
-    Name        = "formation_kubernetes",
-    Environment = "formation_kubernetes",
     Key         = "kubernetes.io/cluster/${var.cluster_name}",
     Value       = "shared",
   }

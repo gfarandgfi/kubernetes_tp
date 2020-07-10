@@ -34,7 +34,7 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   cluster_name    = each.value
   node_group_name = "main_node_group-${each.value}"
   node_role_arn   = aws_iam_role.main-node.arn
-  subnet_ids      = [var.formation_kubernetes_clusters_subnet_a.id, var.formation_kubernetes_clusters_subnet_b.id]
+  subnet_ids      = [var.formation_kubernetes_clusters_subnet_a, var.formation_kubernetes_clusters_subnet_b]
   # Node configuration
   instance_types  = [var.aws_instance_type]
 

@@ -22,7 +22,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 data "aws_ami" "eks-worker" {
   filter {
     name   = "name"
-    values = ["amazon-eks-node-${aws_eks_cluster.formation_kubernetes[each.key].version}-v*"]
+    values = ["amazon-eks-node-${aws_eks_cluster.formation_kubernetes[*].version}-v*"]
   }
 
   most_recent = true

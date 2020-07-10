@@ -28,6 +28,6 @@ variable "aws_default_zone" {
   type        = string
 }
 
-variable "role_arn" {}
+# variable "role_arn" {}
 
-variable "node_role_arn" {}
+# variable "node_role_arn" {}

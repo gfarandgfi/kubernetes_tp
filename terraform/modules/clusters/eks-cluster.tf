@@ -23,7 +23,15 @@ data "aws_ami" "eks-worker" {
   filter {
     for_each = var.student_names
     name     = "name"
-    values   = ["amazon-eks-node-${aws_eks_cluster.formation_kubernetes[each.value].version}-v*"]
+    values   = {
+    for student_names in aws_eks_cluster.formation_kubernetes:
+      student_names.version
+    }
+  }
+
+  {
+    for student_names in aws_eks_cluster.formation_kubernetes:
+      student_names.version
   }
 
   most_recent = true

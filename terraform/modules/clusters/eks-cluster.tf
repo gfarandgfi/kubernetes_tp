@@ -31,9 +31,8 @@ data "aws_ami" "eks-worker" {
 
 resource "aws_eks_node_group" "formation_kubernetes" {
   cluster_name    = aws_eks_cluster.formation_kubernetes[each.value].name
+  node_group_name = "node_group-${aws_eks_cluster.formation_kubernetes[each.value].name}"
   node_role_arn   = aws_iam_role.main-node.arn
-  for_each        = var.student_names
-  node_group_name = "node_group-${each.value}"
   subnet_ids      = var.clusters_subnet_id
   # Node configuration
   instance_types  = [var.aws_instance_type]

@@ -1,5 +1,5 @@
 variable "student_names" {
-  description = "the name of the students taking part in the training, in firstname_name format"
+  description = "the name of the students taking part in the training, in firstname_lastname format"
   type        = map(string)
 }
 
@@ -19,8 +19,6 @@ variable "security_group_ids" {
 variable "clusters_subnet_id" {
   description = "The subnets on which the clusters will be created"
 }
-
-variable "subnet_id" {}
 
 variable "aws_instance_type" {}
 

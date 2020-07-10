@@ -27,3 +27,5 @@ variable "aws_default_zone" {
   description = "Default zone for the resources that will be deployed"
   type        = string
 }
+
+variable "cluster_name" {}

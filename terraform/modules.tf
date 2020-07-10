@@ -17,6 +17,7 @@ module "clusters" {
   security_group_ids = module.network.security_group_ids
   vpc_id                        = module.network.vpc_id
   clusters_subnet_id            = module.network.clusters_subnet_id
+  subnet_id                     = module.network.clusters_subnet_id
   # private_subnets               = module.network.clusters_subnet_id
   tags                          = var.tags
   student_names                 = var.student_names

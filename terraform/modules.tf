@@ -14,7 +14,6 @@ module "clusters" {
   aws_instance_type                       = var.aws_instance_type
   security_group_ids                      = module.network.security_group_ids
   vpc_id                                  = module.network.vpc_id
-  clusters_subnet_id                      = module.network.clusters_subnet_id
   formation_kubernetes_clusters_subnet_a  = module.network.formation_kubernetes_clusters_subnet_a
   formation_kubernetes_clusters_subnet_b  = module.network.formation_kubernetes_clusters_subnet_b
   role_arn                                = module.clusters.role_arn

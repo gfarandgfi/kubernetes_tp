@@ -16,6 +16,7 @@ aws_instance_type = "t2.medium"
 # The name of the students. Must be a map of strings.
 # One cluster will be deployed per student_name
 student_names = {
+    teacher   = "gerard_farand"
     student_1 = "tariq_anoual" 
     student_2 = "ludovic_bels"
     student_3 = "loic_kervarec"

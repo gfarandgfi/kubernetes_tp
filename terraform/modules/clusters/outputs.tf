@@ -29,5 +29,5 @@ output "node_role_arn" {
 }
 
 output "cluster_name" {
-  value = [for student_names in aws_eks_node_group.formation_kubernetes:"${student_names.name}"]
+  value = [for student_names in  aws_eks_cluster.formation_kubernetes:"${student_names.name}"]
 }

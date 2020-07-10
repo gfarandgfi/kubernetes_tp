@@ -29,11 +29,6 @@ data "aws_ami" "eks-worker" {
     }
   }
 
-  {
-    for student_names in aws_eks_cluster.formation_kubernetes:
-      student_names.version
-  }
-
   most_recent = true
   owners      = ["602401143452"] # Amazon EKS AMI Account ID
 }

@@ -7,6 +7,8 @@ variable "vpc_cidr_block" {}
 
 variable "subnet_instances_cidr_block" {}
 
-variable "subnet_clusters_cidr_block" {}
+variable "subnet_clusters_a_cidr_block" {}
+
+variable "subnet_clusters_b_cidr_block" {}
 
 variable "aws_default_zone" {}

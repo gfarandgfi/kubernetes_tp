@@ -1,6 +1,8 @@
 # # The following resources will create one vpc and two subnets (one for the clusters, and another for the master machines)
 
-data "aws_availability_zones" "available" {}
+data "aws_availability_zones" "available" {
+  state = "available"
+}
 
 resource "aws_vpc" "formation_kubernetes" {
   enable_dns_hostnames = true
@@ -24,11 +26,19 @@ resource "aws_subnet" "formation_kubernetes_instances" {
   depends_on = [aws_vpc.formation_kubernetes]
 }
 
-resource "aws_subnet" "formation_kubernetes_clusters" {
-  for_each          = data.aws_availability_zones.available.names
-  availability_zone = each.key
+resource "aws_subnet" "formation_kubernetes_clusters_a" {
+  availability_zone = data.aws_availability_zones.available.names[0]
   vpc_id            = aws_vpc.formation_kubernetes.id
-  cidr_block        = "10.20.${10+each.key}.0/24"
+  cidr_block        = var.subnet_clusters_a_cidr_block
+  tags              = var.tags
+
+  depends_on = [aws_vpc.formation_kubernetes]
+}
+
+resource "aws_subnet" "formation_kubernetes_clusters_b" {
+  availability_zone = data.aws_availability_zones.available.names[1]
+  vpc_id            = aws_vpc.formation_kubernetes.id
+  cidr_block        = var.subnet_clusters_b_cidr_block
   tags              = var.tags
 
   depends_on = [aws_vpc.formation_kubernetes]

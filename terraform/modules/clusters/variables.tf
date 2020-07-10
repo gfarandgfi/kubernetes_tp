@@ -27,3 +27,7 @@ variable "aws_instance_type" {}
 variable "role_arn" {}
 
 variable "node_role_arn" {}
+
+variable "formation_kubernetes_clusters_subnet_a" {}
+
+variable "formation_kubernetes_clusters_subnet_b" {}

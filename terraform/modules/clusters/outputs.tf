@@ -27,3 +27,9 @@ output "role_arn" {
 output "node_role_arn" {
   value = aws_iam_role.main-node.arn
 }
+
+output "cluster_name" {
+  value = {
+    for student_names in aws_eks_node_group.formation_kubernetes:"${student_names.name}"
+  }
+}

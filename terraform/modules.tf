@@ -31,5 +31,6 @@ module "network" {
   subnet_clusters_a_cidr_block  = "10.0.64.0/18"
   subnet_clusters_b_cidr_block  = "10.0.128.0/18"
   tags                          = var.tags
+  cluster_name                  = var.cluster_name
   student_names       = var.student_names
 }

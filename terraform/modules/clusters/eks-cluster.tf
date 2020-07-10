@@ -50,11 +50,11 @@ resource "aws_eks_node_group" "formation_kubernetes" {
   }
 
   depends_on = [
-    aws_eks_cluster.formation_kubernetes
+    aws_eks_cluster.formation_kubernetes,
     aws_iam_role_policy_attachment.main-node-AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.main-node-AmazonEKS_CNI_Policy,
     aws_iam_role_policy_attachment.main-node-AmazonEC2ContainerRegistryReadOnly,
-    aws_iam_role_policy_attachment.main-node-AmazonEC2FullAccess
+    aws_iam_role_policy_attachment.main-node-AmazonEC2FullAccess,
     ]
 }
 

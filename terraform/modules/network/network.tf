@@ -22,8 +22,6 @@ resource "aws_subnet" "formation_kubernetes_instances" {
   cidr_block        = var.subnet_instances_cidr_block
   availability_zone = var.aws_default_zone
   tags              = var.tags
-
-  depends_on = [aws_vpc.formation_kubernetes]
 }
 
 resource "aws_subnet" "formation_kubernetes_clusters_a" {
@@ -36,8 +34,6 @@ resource "aws_subnet" "formation_kubernetes_clusters_a" {
     Key         = "kubernetes.io/cluster/${var.cluster_name}"
     Value       = "shared"
   }
-
-  depends_on = [aws_vpc.formation_kubernetes]
 }
 
 resource "aws_subnet" "formation_kubernetes_clusters_b" {
@@ -50,6 +46,4 @@ resource "aws_subnet" "formation_kubernetes_clusters_b" {
     Key         = "kubernetes.io/cluster/${var.cluster_name}"
     Value       = "shared"
   }
-
-  depends_on = [aws_vpc.formation_kubernetes]
 }

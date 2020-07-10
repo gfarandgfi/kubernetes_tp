@@ -15,4 +15,4 @@ variable "aws_default_zone" {}
 
 variable "student_names" {}
 
- variable "cluster_name" {}
+variable "cluster_name" {}

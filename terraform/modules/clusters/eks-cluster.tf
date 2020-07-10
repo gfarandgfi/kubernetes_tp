@@ -8,7 +8,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 
   vpc_config {
     security_group_ids      = [var.security_group_ids]
-    subnet_ids              = var.clusters_subnet_id
+    subnet_ids              = [var.clusters_subnet_id]
     endpoint_private_access = true
     endpoint_public_access  = false
   }

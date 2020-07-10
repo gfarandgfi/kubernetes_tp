@@ -21,7 +21,6 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 # Fetch an ami for the nodes
 data "aws_ami" "eks-worker" {
   filter {
-    for_each = var.student_names
     name     = "name"
     values   = [for student_names in aws_eks_cluster.formation_kubernetes:"amazon-eks-node-${student_names.version}-v*"]
   }

@@ -1,3 +1,8 @@
+# Grab subnet ids
+data "aws_subnet_ids" "formation_kubernetes" {
+  vpc_id = var.vpc_id
+}
+
 # Create the clusters 
 resource "aws_eks_cluster" "formation_kubernetes" {
   version  = "1.16"
@@ -8,7 +13,7 @@ resource "aws_eks_cluster" "formation_kubernetes" {
 
   vpc_config {
     security_group_ids      = [var.security_group_ids]
-    subnet_ids              = [var.formation_kubernetes_clusters_subnet_a, var.formation_kubernetes_clusters_subnet_b]
+    subnet_ids              = aws_subnet_ids.formation_kubernetes.ids
     endpoint_private_access = true
     endpoint_public_access  = false
   }

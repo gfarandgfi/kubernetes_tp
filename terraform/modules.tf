@@ -1,16 +1,18 @@
 # Create an instance for each student
 module "instances" {
-  source              = "./modules/instances"
-  aws_instance_type   = var.aws_instance_type
-  aws_instance_ami    = var.aws_instance_ami
-  aws_default_zone    = var.aws_default_zone
-  subnet_id           = module.network.instances_subnet_id
-  security_group_ids  = [module.network.security_group_ids]
-  student_names       = var.student_names
+  source                                   = "./modules/instances"
+  aws_instance_type                        = var.aws_instance_type
+  aws_instance_ami                         = var.aws_instance_ami
+  aws_default_zone                         = var.aws_default_zone
+  subnet_id                                = module.network.instances_subnet_id
+  security_group_ids                       = [module.network.security_group_ids]
+  student_names                            = var.student_names
+  formation_kubernetes_instances_vpc_id    = module.network.formation_kubernetes_instances_vpc_id
+  formation_kubernetes_instances_subnet_id = module.network.formation_kubernetes_instances_subnet_id
 }
 
 module "clusters" {
-  source                        = "./modules/clusters"
+  source                                  = "./modules/clusters"
   aws_instance_type                       = var.aws_instance_type
   security_group_ids                      = module.network.security_group_ids
   vpc_id                                  = module.network.vpc_id

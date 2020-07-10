@@ -22,4 +22,12 @@ output "formation_kubernetes_clusters_subnet_b" {
   value = aws_subnet.formation_kubernetes_clusters_b.id
 }
 
+output "formation_kubernetes_instances_vpc_id" {
+  value = aws_vpc.formation_kubernetes_instances.id
+}
+
+output "formation_kubernetes_instances_subnet_id" {
+  value = aws_subnet.formation_kubernetes_instances.id
+}
+
 

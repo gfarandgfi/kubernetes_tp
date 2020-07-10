@@ -24,3 +24,6 @@ variable "security_group_ids" {
   type = set(string)
 }
 
+variable "formation_kubernetes_instances_vpc_id" {}
+
+variable "formation_kubernetes_instances_subnet_id" {}

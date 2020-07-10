@@ -4,3 +4,4 @@ output "all_public_info" {
       student_names.public_ip => student_names.public_dns
   }
 }
+

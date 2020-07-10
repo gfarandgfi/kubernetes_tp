@@ -31,7 +31,7 @@ resource "aws_subnet" "formation_kubernetes_clusters_a" {
   tags              = {
     Name                                      = "formation_kubernetes"
     Environment                               = "formation_kubernetes"
-    kubernetes.io/cluster/${var.cluster_name} = "shared"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
 
@@ -42,6 +42,6 @@ resource "aws_subnet" "formation_kubernetes_clusters_b" {
   tags              = {
     Name                                      = "formation_kubernetes"
     Environment                               = "formation_kubernetes"
-    kubernetes.io/cluster/${var.cluster_name} = "shared"
+    "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }

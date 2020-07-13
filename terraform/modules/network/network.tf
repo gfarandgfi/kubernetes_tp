@@ -45,7 +45,7 @@ resource "aws_subnet" "formation_kubernetes_clusters_a" {
   vpc_id            = aws_vpc.formation_kubernetes.id
   cidr_block        = cidrsubnet(var.vpc_cidr_block, 9, length(var.student_names))
   tags              = {
-    Key   = [for aws_subnet.formation_kubernetes_clusters_a:"kubernetes.io/cluster/${student_names.name}"]
+    Key   = [for student_names in aws_subnet.formation_kubernetes_clusters_a:"kubernetes.io/cluster/${student_names.name}"]
     Value = "shared"
   }
 }
@@ -56,7 +56,7 @@ resource "aws_subnet" "formation_kubernetes_clusters_b" {
   vpc_id            = aws_vpc.formation_kubernetes.id
   cidr_block        = cidrsubnet(var.vpc_cidr_block, 9, length(var.student_names))
   tags              = {
-    Key   = [for aws_subnet.formation_kubernetes_clusters_b:"kubernetes.io/cluster/${student_names.name}"]
+    Key   = [for student_names in aws_subnet.formation_kubernetes_clusters_b:"kubernetes.io/cluster/${student_names.name}"]
     Value = "shared"
   }
 }

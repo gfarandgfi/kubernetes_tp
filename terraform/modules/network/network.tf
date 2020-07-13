@@ -2,7 +2,6 @@
 
 # Create independent vpc  and subnet for instances
 resource "aws_vpc" "formation_kubernetes_instances" {
-  enable_dns_hostnames = true
   cidr_block           = var.vpc_cidr_block
   enable_dns_support   = true
   enable_dns_hostnames = true
@@ -29,7 +28,6 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_vpc" "formation_kubernetes" {
-  enable_dns_hostnames = true
   cidr_block           = var.vpc_cidr_block
   enable_dns_support   = true
   enable_dns_hostnames = true

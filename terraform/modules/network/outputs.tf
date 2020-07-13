@@ -15,11 +15,15 @@ output "internet_gateway_id" {
 }
 
 output "formation_kubernetes_clusters_subnet_a" {
-  value = aws_subnet.formation_kubernetes_clusters_a.id
+  value = { 
+    for student_names in aws_subnet.formation_kubernetes_clusters_a:student_names.id
+  }
 }
 
 output "formation_kubernetes_clusters_subnet_b" {
-  value = aws_subnet.formation_kubernetes_clusters_b.id
+  value = { 
+    for student_names in aws_subnet.formation_kubernetes_clusters_b:student_names.id
+  }
 }
 
 output "formation_kubernetes_instances_vpc_id" {

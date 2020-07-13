@@ -10,5 +10,5 @@ resource "aws_instance" "student" {
   subnet_id                   = var.subnet_id
   key_name                    = "formation_docker"
   vpc_security_group_ids      = var.security_group_ids
-  # associate_public_ip_address = true
+  associate_public_ip_address = true
 }

@@ -40,21 +40,23 @@ resource "aws_internet_gateway" "formation_kubernetes" {
 
 
 resource "aws_subnet" "formation_kubernetes_clusters_a" {
+  for_each          = length(var.student_names)
   availability_zone = data.aws_availability_zones.available.names[0]
   vpc_id            = aws_vpc.formation_kubernetes.id
-  cidr_block        = var.subnet_clusters_a_cidr_block
+  cidr_block        = cidrsubnet(var.vpc_cidr_block, 9, length(var.student_names))
   tags              = {
-    Key         = "kubernetes.io/cluster/${var.cluster_name}" ,
-    Value       = "shared",
+    Key   = {for student_names in aws_eks_cluster.formation_kubernetes:"kubernetes.io/cluster/${student_names.name}"}
+    Value = "shared"
   }
 }
 
 resource "aws_subnet" "formation_kubernetes_clusters_b" {
+  count             = length(var.student_names)
   availability_zone = data.aws_availability_zones.available.names[1]
   vpc_id            = aws_vpc.formation_kubernetes.id
-  cidr_block        = var.subnet_clusters_b_cidr_block
+  cidr_block        = cidrsubnet(var.vpc_cidr_block, 9, length(var.student_names))
   tags              = {
-    Key         = "kubernetes.io/cluster/${var.cluster_name}",
-    Value       = "shared",
+    Key   = {for student_names in aws_eks_cluster.formation_kubernetes:"kubernetes.io/cluster/${student_names.name}"}
+    Value = "shared"
   }
 }
